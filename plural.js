@@ -222,7 +222,7 @@ module.exports = (db, name, opts) => {
       return await next();
     }
 
-    let validate = db.getValidate(collection);
+    let validate = db.getValidate(pluralize.singular(collection));
 
     if (!validate(ctx.request.body)) {
       ctx.body = validate.errors;
@@ -240,7 +240,7 @@ module.exports = (db, name, opts) => {
   async function update(ctx, next) {
     let incomingResources = Array.isArray(ctx.request.body) ? ctx.request.body : [ctx.request.body];
 
-    let validate = db.getValidate(name);
+    let validate = db.getValidate(pluralize.singular(name));
 
     let newResources = [];
 
